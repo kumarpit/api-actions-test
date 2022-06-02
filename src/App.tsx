@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
 import './styles/App.css';
 import CountDispatchers from './state/dispatchers';
 import { useSelector, useDispatch } from 'react-redux';
+import { CounterStore } from './state/reducer';
 
 function App() {
-  const value = useSelector((state: any) => state.count);
+  const value = useSelector((state: CounterStore) => state.count);
   const dispatch = useDispatch();
   return (
     <div className="App">

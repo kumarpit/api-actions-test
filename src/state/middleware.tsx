@@ -5,4 +5,4 @@ const loggerMiddleware = (store: any) => (next: any) => (action: Actions) => {
     next(action);
 };
 
-export default loggerMiddleware;
+export default loggerMiddleware
