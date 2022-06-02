@@ -1,4 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
+import loggerMiddleware from './middleware';
+
 
 export type CounterStore = {
     count: number
@@ -29,7 +31,7 @@ const countReducer = (
     }
 }
 
-
 export default configureStore({
-    reducer: countReducer
+    reducer: countReducer,
+    middleware: (gdm) => gdm().concat(loggerMiddleware)
 })
