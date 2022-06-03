@@ -5,10 +5,14 @@ import { Actions } from "./reducer";
  * in the payload to allow the middleware to make 
  * the appropiate network request
  */
-const makeRequest = (verb: string = "GET", body: object = {}, route: string): Actions => { 
+const makeRequest = (method: string = "get", body: object = {}, route: string): Actions => { 
     return {
         type: "NETWORK_REQUEST",
-        payload: {}
+        payload: {
+            method: method,
+            route: route,
+            body: body
+        }
     }
 }
 
