@@ -1,17 +1,17 @@
 import './styles/App.css';
-import CountDispatchers from './state/counter/dispatchers';
+import AuthDispatchers from './state/auth/dispatchers';
 import { useSelector, useDispatch } from 'react-redux';
-import { CounterStore } from "./state/counter/reducer";
 
 function App() {
-  const value = useSelector((state: CounterStore) => state.count);
+  // const value = useSelector((state: CounterStore) => state.count);
   const dispatch = useDispatch();
   return (
     <div className="App">
-      <p>{value}</p>
-      <button onClick={() => CountDispatchers.increment(dispatch)}>Increment</button>
-      <button onClick={() => CountDispatchers.decrement(dispatch)}>Decrement</button>
-      <button>Test API middleware</button>
+      <input type="text" placeholder="username" />
+      <input type="text" placeholder="password" />
+      <button onClick={() => AuthDispatchers.signup(dispatch)}>Signup</button>
+      <button onClick={() => AuthDispatchers.login(dispatch)}>Login</button>
+      <button onClick={() => AuthDispatchers.logout(dispatch)}>Logout</button>
     </div>
   );
 }

@@ -1,13 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit';
-import countReducer from './counter/reducer';
-import loggerMiddleware from './middleware';
+import authReducer from './auth/reducer';
+import restMiddleware from './middleware';
 
 export type Actions = {
-    type: String,
-    payload: Object
+    type: string,
+    payload: any
 }
 
 export default configureStore({
-    reducer: countReducer,
-    middleware: (gdm) => gdm().concat(loggerMiddleware)
+    reducer: authReducer,
+    middleware: (gdm) => gdm().concat(restMiddleware)
 })
