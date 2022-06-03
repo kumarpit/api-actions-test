@@ -1,23 +1,23 @@
-import makeRequest from "../dispatchers";
+import request from "../dispatchers";
 
 const signup = (dispatch: any, username: string, password: string) => {
     const body = {
         username: username,
         password: password
     }
-    dispatch(makeRequest("post", body, "/user"));
+    dispatch(request("user", "[SOME ACTION]", "post", body));
 }
 
 const login = (dispatch: any) => {
-    dispatch(makeRequest("post", {}, "/login"))
+    dispatch(request("login", "[SOME ACTION]", "post", {}))
 }
 
 const logout = (dispatch: any) => {
-    dispatch(makeRequest("post", {}, "/logout"))
+    dispatch(request("logout", "[SOME ACTION]", "post", {}))
 }
 
 const echo = (dispatch: any) => {
-    dispatch(makeRequest("get", {}, "/echo"))
+    dispatch(request("echo", "[SOME ACTION]"))
 }
 
 const AuthDispatchers = {
