@@ -7,6 +7,10 @@ export type Actions = {
     payload: any
 }
 
+/**
+ * @note make serializable false
+ * https://redux-toolkit.js.org/usage/usage-guide#working-with-non-serializable-data
+ */
 export default configureStore({
     reducer: authReducer,
     middleware: (gdm) => gdm().concat(restMiddleware)

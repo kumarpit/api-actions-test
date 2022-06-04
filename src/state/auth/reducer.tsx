@@ -1,12 +1,11 @@
 import { Actions } from '../reducer';
 
 export type AuthStore = {
-    username: string,
     access_token: string;
     refresh_token: string;
 }
 
-const initialState: AuthStore = { username: '', access_token: '', refresh_token: '' };
+const initialState: AuthStore = { access_token: '', refresh_token: '' };
 
 const authReducer = (
     state: AuthStore = initialState,
@@ -14,16 +13,15 @@ const authReducer = (
 ): AuthStore => {
     switch (type) {
         case "LOGIN":
+            console.log(payload)
             return {
                 ...state,
-                username: payload.username,
                 access_token: payload.access_token,
-                refresh_token: payload.access_token
+                refresh_token: payload.refresh_token
             }
         case "LOGOUT":
             return {
                 ...state,
-                username: '',
                 access_token: '',
                 refresh_token: ''
             }

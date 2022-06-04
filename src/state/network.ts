@@ -1,6 +1,8 @@
 import axios, { AxiosRequestHeaders, AxiosResponse } from 'axios';
 
 axios.defaults.timeout = 1000;
+axios.defaults.headers.post['Content-Type'] = 'application/json';
+
 const url = 'http://127.0.0.1:3000';
 const constructPath = (path: string): string => `${url}/${path}`;
 
@@ -23,14 +25,13 @@ const Network = {
     post: async ({
         path,
         body,
-        headers,
     }: Request): Promise<AxiosResponse> => {
+        console.log(body);
         const result = await axios.post(
             constructPath(path),
             body,
-            headers,
         );
-
+        
         return {
             ...result,
         };
