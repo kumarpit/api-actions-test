@@ -26,12 +26,11 @@ const Network = {
         path,
         body,
     }: Request): Promise<AxiosResponse> => {
-        console.log(body);
         const result = await axios.post(
             constructPath(path),
             body,
         );
-        
+
         return {
             ...result,
         };

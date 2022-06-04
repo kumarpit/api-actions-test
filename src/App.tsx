@@ -8,6 +8,7 @@ function App() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const access_token = useSelector((state: AuthStore) => state.access_token);
+  const refresh_token = useSelector((state: AuthStore) => state.refresh_token);
   const dispatch = useDispatch();
   return (
     <div className="App">
@@ -18,6 +19,7 @@ function App() {
       <button onClick={() => AuthDispatchers.echo(dispatch)}>Echo</button>
       <button onClick={() => AuthDispatchers.logout(dispatch)}>Logout</button>
       <h3>{access_token}</h3>
+      <h3>{refresh_token}</h3>
     </div>
   );
 }

@@ -6,8 +6,10 @@ import { Actions } from "./reducer";
  * the appropiate network request
  */
 const request = (path: string, handle_response: string, method: string = "get", body: object = {}): Actions => { 
+    let type = "NETWORK_REQUEST";
+    if (path == "login") type = "AUTHENTICATE";
     return {
-        type: "NETWORK_REQUEST",
+        type: type,
         payload: {
             method,
             path,
