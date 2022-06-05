@@ -14,7 +14,7 @@ function App() {
   return (
     <div className="App">
       <input type="text" placeholder="username" onChange={(event) => setUsername(event.target.value)}/>
-      <input type="password" placeholder="password" onChange={(event) => setPassword(event.target.value)}/>
+      <input type="text" placeholder="password" onChange={(event) => setPassword(event.target.value)}/>
       <button onClick={() => AuthDispatchers.signup(dispatch, username, password)}>Signup</button>
       <button onClick={() => AuthDispatchers.login(dispatch, username, password)}>Login</button>
       <button onClick={() => AuthDispatchers.echo(dispatch)}>Echo</button>
