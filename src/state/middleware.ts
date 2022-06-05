@@ -2,7 +2,7 @@ import { Actions } from "./reducer";
 import StatusDispatchers from "./status/dispatchers";
 import Network from "./network";
 
-const new_action = (type: string, payload: object) => {
+const next_action = (type: string, payload: object) => {
     return { type: type, payload: payload };
 }
 
@@ -14,57 +14,71 @@ const restMiddleware = (store: any) => (next: any) => async (action: Actions) =>
     
     if (action.type == "NETWORK_REQUEST") {
 
+        StatusDispatchers.loading(dispatch, path);
+
         switch(method) {
             case "get":
-                Network.get({ path })
-                .then((res) => {
-                    console.log(res.data);
-                    dispatch(new_action(handle_response, res.data))
-                })
-                .catch((err) => console.log(err))
-                return;
+                try {
+                    const res = await Network.get({ path });
+                    dispatch(next_action(handle_response, res.data))
+                    break;    
+                } catch (err: any) {
+                    return StatusDispatchers.failure(dispatch, path, err);
+                }
 
             case "post": 
-                Network.post({ path, body })
-                .then((res) => dispatch(new_action(handle_response, res.data)))
-                .catch((err) => console.log(err))
-                return;
+                try {
+                    const res = await Network.post({ path, body });
+                    dispatch(next_action(handle_response, res.data));
+                    break;
+                } catch (err: any) {
+                    return StatusDispatchers.failure(dispatch, path, err);
+                }
         }  
+
+        return StatusDispatchers.success(dispatch, path);
     
-    } else {
+    } else if (action.type == "AUTHENTICATE") {
+        
+        StatusDispatchers.loading(dispatch, path);
+
         switch(path) {
-            case "login":
-                StatusDispatchers.loading(dispatch, "login");
-                Network.post({ path, body })
-                .then((res) => {
-                    Network.configure({ 
+            case "login":      
+                try {
+                    const res = await Network.post({ path, body });
+                    Network.configure({
                         authorization: `BEARER ${res.data.access_token}`
                     })
-                    dispatch(new_action(handle_response, res.data))
-                })
-                .catch((err) => console.log(err));
-                return;
+                    dispatch(next_action(handle_response, res.data))
+                    break;
+                } catch (err: any) {
+                    return StatusDispatchers.failure(dispatch, path, err);
+                }
             
             case "logout":
-                Network.post({ path, body: { refresh_token: store.getState().refresh_token } })
-                .then((res) => {
+                try {
+                    const res = await Network.post({ path, body: { refresh_token: store.getState().refresh_token } });    
                     Network.configure({ authorization: ''});
-                    store.dispatch(new_action(handle_response, res.data))
-                })
-                .catch((err) => console.log(err));
-                return;
+                    store.dispatch(next_action(handle_response, res.data))
+                    break;
+                } catch (err: any) {
+                    return StatusDispatchers.failure(dispatch, path, err)
+                }
 
             case "token":
-                Network.post({ path, body: { refresh_token: store.getState().refresh_token } })
-                .then((res) => {
+                try {
+                    const res = await Network.post({ path, body: { refresh_token: store.getState().refresh_token } });
                     Network.configure({ 
                         authorization: `BEARER ${res.data.new_access_token}`
                     })
-                    dispatch(new_action(handle_response, res.data))
-                })
-                .catch((err) => console.log(err));
-                return;
+                    dispatch(next_action(handle_response, res.data))
+                    break;
+                } catch (err: any) {
+                    return StatusDispatchers.failure(dispatch, path, err)
+                } 
         }
+
+        return StatusDispatchers.success(dispatch, path);
     }
 };
 
