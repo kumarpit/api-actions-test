@@ -24,6 +24,11 @@ const authReducer = (
                 access_token: '',
                 refresh_token: ''
             }
+        case "TOKEN":
+            return {
+                ...state,
+                access_token: payload.new_access_token,
+            }
         default:
             return state;
     }

@@ -2,13 +2,14 @@ import { useState } from 'react';
 import './styles/App.css';
 import AuthDispatchers from './state/auth/dispatchers';
 import { useSelector, useDispatch } from 'react-redux';
-import { AuthStore } from "./state/auth/reducer";
 
 function App() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const access_token = useSelector((state: AuthStore) => state.access_token);
-  const refresh_token = useSelector((state: AuthStore) => state.refresh_token);
+  const access_token = useSelector((state: any) => state.auth.access_token);
+  const refresh_token = useSelector((state: any) => state.auth.refresh_token);
+  const status = useSelector((state: any) => state.status.login?.loading);
+  console.log(status);
   const dispatch = useDispatch();
   return (
     <div className="App">
@@ -18,6 +19,7 @@ function App() {
       <button onClick={() => AuthDispatchers.login(dispatch, username, password)}>Login</button>
       <button onClick={() => AuthDispatchers.echo(dispatch)}>Echo</button>
       <button onClick={() => AuthDispatchers.logout(dispatch)}>Logout</button>
+      <button onClick={() => AuthDispatchers.token(dispatch)}>Refresh Token</button>
       <h3>{access_token}</h3>
       <h3>{refresh_token}</h3>
     </div>

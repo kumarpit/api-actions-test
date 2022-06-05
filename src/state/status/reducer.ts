@@ -1,33 +1,33 @@
 import { Actions } from '../reducer';
 
-export type AuthStore = {
-    access_token: string;
-    refresh_token: string;
-}
+export type StatusStore = {
+    [key: string]: {
+        loading: boolean,
+        error: string,
+    }
+}; 
 
-const initialState: AuthStore = { access_token: '', refresh_token: '' };
+const initialState: StatusStore = {};
 
-const authReducer = (
-    state: AuthStore = initialState,
+const statusReducer = (
+    state: StatusStore = initialState,
     { type, payload }: Actions
-): AuthStore => {
-    switch (type) {
-        case "LOGIN":
-            console.log(payload)
-            return {
-                ...state,
-                access_token: payload.access_token,
-                refresh_token: payload.refresh_token
-            }
-        case "LOGOUT":
-            return {
-                ...state,
-                access_token: '',
-                refresh_token: ''
-            }
-        default:
-            return state;
+): StatusStore => {
+    console.log(type);
+    const matches = /(.*)_(REQUEST|SUCCESS|FAILURE)/.exec(type);
+    if (!matches) return state;
+    const [, requestName, requestState] = matches;
+    
+    let err = '';
+    if (requestState == "FAILURE") err = payload.message;
+
+    return {
+        ...state,
+        [requestName]: {
+            loading: requestState == "REQUEST",
+            error: err
+        }   
     }
 }
 
-// export default authReducer;
+export default statusReducer;

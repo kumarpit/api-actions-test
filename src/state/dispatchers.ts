@@ -7,7 +7,7 @@ import { Actions } from "./reducer";
  */
 const request = (path: string, handle_response: string, method: string = "get", body: object = {}): Actions => { 
     let type = "NETWORK_REQUEST";
-    if (path == "login") type = "AUTHENTICATE";
+    if (path == "login" || path == "token" || path == "logout") type = "AUTHENTICATE";
     return {
         type: type,
         payload: {

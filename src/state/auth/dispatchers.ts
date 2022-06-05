@@ -20,6 +20,10 @@ const logout = (dispatch: any) => {
     dispatch(request("logout", "LOGOUT", "post", {}))
 }
 
+const token = (dispatch: any) => {
+    dispatch(request("token", "TOKEN", "post", {}))
+}
+
 const echo = (dispatch: any) => {
     dispatch(request("echo", "ECHO"))
 }
@@ -28,6 +32,7 @@ const AuthDispatchers = {
     signup,
     login,
     echo,
+    token,
     logout
 }
 
