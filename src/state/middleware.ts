@@ -7,12 +7,12 @@ const next_action = (type: string, payload: object) => {
 }
 
 const restMiddleware = (store: any) => (next: any) => async (action: Actions) => {
-    if (action.type != "NETWORK_REQUEST" && action.type != "AUTHENTICATE") next(action);
+    if (action.type != "NETWORK" && action.type != "AUTHENTICATE") next(action);
 
     const { method, body, path, handle_response } = action.payload;
     const { dispatch } = store;
     
-    if (action.type == "NETWORK_REQUEST") {
+    if (action.type == "NETWORK") {
 
         StatusDispatchers.loading(dispatch, path);
 
