@@ -1,4 +1,4 @@
-import { Actions } from '../reducer';
+import { Action } from '../types';
 
 export type AuthStore = {
     access_token: string;
@@ -9,10 +9,10 @@ const initialState: AuthStore = { access_token: '', refresh_token: '' };
 
 const authReducer = (
     state: AuthStore = initialState,
-    { type, payload }: Actions
+    { type, payload }: Action
 ): AuthStore => {
     switch (type) {
-        case "LOGIN":
+        case "[login]":
             return {
                 ...state,
                 access_token: payload.access_token,
