@@ -1,5 +1,6 @@
 import request from "../utils";
 import Network from "../network";
+import * as AuthActions from "./actions";
 
 const signup = (dispatch: any, username: string, password: string) => {
     const body = {
@@ -9,7 +10,7 @@ const signup = (dispatch: any, username: string, password: string) => {
     dispatch(request({ 
         method: "POST", 
         endpoint: "signup", 
-        nextAction: "[signup]", 
+        nextAction: AuthActions.SIGNUP, 
         body: body 
     }));
 }
@@ -22,7 +23,7 @@ const login = (dispatch: any, username: string, password: string) => {
     dispatch(request({ 
         method: "POST",
         endpoint: "login",
-        nextAction: "[login]",
+        nextAction: AuthActions.LOGIN,
         body: body,
         onSuccess: (res, dispatch) => {
             Network.configure({
@@ -36,7 +37,8 @@ const logout = (dispatch: any) => {
     dispatch(request({ 
         method: "POST",
         endpoint: "logout",
-        nextAction: "[logout]",
+        nextAction: AuthActions.LOGOUT,
+        refresh: true,
         onSuccess: (res, dispatch) => {
             Network.configure({ authorization: ''});
         }
@@ -47,14 +49,21 @@ const token = (dispatch: any) => {
     dispatch(request({ 
         method: "POST",
         endpoint: "token",
-        nextAction: "TOKEN"
+        refresh: true,
+        nextAction: AuthActions.TOKEN,
+        onSuccess: (res, dispatch) => {
+            Network.configure({ authorization: `BEARER ${res.data.new_access_token}` })
+        }
     }))
 }
 
 const echo = (dispatch: any) => {
     dispatch(request({ 
-        endpoint: "GET",
-        nextAction: "[echo]"
+        endpoint: "echo",
+        nextAction: AuthActions.ECHO,
+        onSuccess: (res, dispatch) => {
+            console.log(res.data);
+        }
     }))
 }
 

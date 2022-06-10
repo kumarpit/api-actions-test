@@ -1,4 +1,5 @@
 import { Action } from '../types';
+import * as AuthActions from "./actions"
 
 export type AuthStore = {
     access_token: string;
@@ -12,19 +13,19 @@ const authReducer = (
     { type, payload }: Action
 ): AuthStore => {
     switch (type) {
-        case "[login]":
+        case AuthActions.LOGIN:
             return {
                 ...state,
                 access_token: payload.access_token,
                 refresh_token: payload.refresh_token
             }
-        case "LOGOUT":
+        case AuthActions.LOGOUT:
             return {
                 ...state,
                 access_token: '',
                 refresh_token: ''
             }
-        case "TOKEN":
+        case AuthActions.TOKEN:
             return {
                 ...state,
                 access_token: payload.new_access_token,

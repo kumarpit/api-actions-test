@@ -7,14 +7,16 @@ export type RSAAobject = {
     method?: keyof HTTPMethods,
     body?: object,
     nextAction: string,
-    onSuccess?: CBFunction
+    onSuccess?: CBFunction,
+    refresh?: boolean
 }
 
 export const defaultRSAA: RSAAobject = {
     endpoint: "/",
     method: "GET",
     nextAction: "",
-    onSuccess: null
+    onSuccess: null,
+    refresh: false
 }
 
 export type CBFunction = Nullable<(res: any, dispatch: any) => void>;

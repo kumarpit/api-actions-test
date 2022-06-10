@@ -1,4 +1,4 @@
-import { Action, RSAA, defaultRSAA, CBFunction, RSAAobject } from "./types";
+import { Action, RSAA, defaultRSAA, RSAAobject } from "./types";
 
 /**
  * @returns an action with a network config object
