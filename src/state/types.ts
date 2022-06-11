@@ -2,9 +2,15 @@ type Nullable<T> = T | null;
 
 export const RSAA = '@@restful-middleware/RSAA';
 
+export enum HTTPMethod {
+    POST = "POST",
+    GET = "GET",
+    PUT = "PUT"
+}
+
 export type RSAAobject = {
     endpoint: string,
-    method?: keyof HTTPMethods,
+    method?: HTTPMethod,
     body?: object,
     nextAction: string,
     onSuccess?: CBFunction,
@@ -13,7 +19,7 @@ export type RSAAobject = {
 
 export const defaultRSAA: RSAAobject = {
     endpoint: "/",
-    method: "GET",
+    method: HTTPMethod.GET,
     nextAction: "",
     onSuccess: null,
     refresh: false
@@ -25,10 +31,4 @@ export type Action = {
     type: string,
     payload?: any,
     [RSAA]?: any,
-}
-
-export type HTTPMethods = {
-    POST: string,
-    PUT: string,
-    GET: string,
 }

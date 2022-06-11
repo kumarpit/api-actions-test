@@ -1,6 +1,7 @@
 import request from "../utils";
 import Network from "../network";
 import * as AuthActions from "./actions";
+import { HTTPMethod } from "../types";
 
 const signup = (dispatch: any, username: string, password: string) => {
     const body = {
@@ -8,7 +9,7 @@ const signup = (dispatch: any, username: string, password: string) => {
         password: password
     }
     dispatch(request({ 
-        method: "POST", 
+        method: HTTPMethod.POST, 
         endpoint: "signup", 
         nextAction: AuthActions.SIGNUP, 
         body: body 
@@ -21,7 +22,7 @@ const login = (dispatch: any, username: string, password: string) => {
         password: password
     }
     dispatch(request({ 
-        method: "POST",
+        method: HTTPMethod.POST,
         endpoint: "login",
         nextAction: AuthActions.LOGIN,
         body: body,
@@ -35,7 +36,7 @@ const login = (dispatch: any, username: string, password: string) => {
 
 const logout = (dispatch: any) => {
     dispatch(request({ 
-        method: "POST",
+        method: HTTPMethod.POST,
         endpoint: "logout",
         nextAction: AuthActions.LOGOUT,
         refresh: true,
@@ -47,7 +48,7 @@ const logout = (dispatch: any) => {
 
 const token = (dispatch: any) => {
     dispatch(request({ 
-        method: "POST",
+        method: HTTPMethod.POST,
         endpoint: "token",
         refresh: true,
         nextAction: AuthActions.TOKEN,

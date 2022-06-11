@@ -1,4 +1,4 @@
-import { Action, RSAAobject } from "./types";
+import { Action, HTTPMethod, RSAAobject } from "./types";
 import StatusDispatchers from "./status/dispatchers";
 import Network from "./network";
 import { RSAA } from "./types";
@@ -7,14 +7,15 @@ import { createAction } from "./utils";
 const restMiddleware = (store: any) => (next: any) => async (action: Action) => {
     if (!action[RSAA]) return next(action);
 
-    const { method, body, endpoint, nextAction, onSuccess, refresh }: RSAAobject = action[RSAA];
+    const { method, body, endpoint, nextAction, onSuccess, refresh } = action[RSAA] as RSAAobject;
     const { dispatch } = store;
     
+    let res;
+    let reqBody = body;
+
     StatusDispatchers.loading(dispatch, endpoint);
 
     try {
-        let res;
-        let reqBody = body;
         if (refresh) {
             reqBody = {
                 ...body,
@@ -22,10 +23,10 @@ const restMiddleware = (store: any) => (next: any) => async (action: Action) => 
             }
         }
         switch(method){
-            case "GET": 
+            case HTTPMethod.GET: 
                 res = await Network.get({ path: endpoint });
                 break;
-            case "POST":
+            case HTTPMethod.POST:
                 res = await Network.post({ path: endpoint, body: reqBody })
                 break;
         }

@@ -8,9 +8,14 @@ import { useAuthStatus } from "./state/selectors/statusSelectors";
 function App() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [load, setLoad] = useState(false);
   const { access_token, refresh_token } = useTokens();
-  const status = useAuthStatus();
+  const loading = useAuthStatus();
   const dispatch = useDispatch();
+
+  if (loading) setTimeout(() => setLoad(true), 250)
+  else if (load && !loading) setLoad(false);
+
   return (
     <div className="App">
       <input type="text" placeholder="username" onChange={(event) => setUsername(event.target.value)}/>
@@ -22,7 +27,7 @@ function App() {
       <button onClick={() => AuthDispatchers.token(dispatch)}>Refresh Token</button>
       <h3>{access_token}</h3>
       <h3>{refresh_token}</h3>
-      <h3>{ status?.loading ? 'loading...' : '' }</h3>
+      <h3>{ load ? 'loading...' : '' }</h3>
     </div>
   );
 }
