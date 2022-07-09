@@ -1,4 +1,4 @@
-import { Action } from '../types';
+import {Action} from '../types';
 
 export type StatusStore = {
     [key: string]: {
@@ -6,30 +6,30 @@ export type StatusStore = {
         success: boolean,
         error: string,
     }
-}; 
+};
 
 const initialState: StatusStore = {};
 
 const statusReducer = (
     state: StatusStore = initialState,
-    { type, payload }: Action
+    {type, payload}: Action,
 ): StatusStore => {
-    const matches = /(.*)_(REQUEST|SUCCESS|FAILURE)/.exec(type);
-    if (!matches) return state;
-    
-    const [, requestName, requestState] = matches;
-    
-    let err = '';
-    if (requestState == "FAILURE") err = payload.message;
+  const matches = /(.*)_(REQUEST|SUCCESS|FAILURE)/.exec(type);
+  if (!matches) return state;
 
-    return {
-        ...state,
-        [requestName]: {
-            loading: requestState == "REQUEST",
-            success: requestState == "SUCCESS",
-            error: err
-        }   
-    }
-}
+  const [, requestName, requestState] = matches;
+
+  let err = '';
+  if (requestState == 'FAILURE') err = payload.message;
+
+  return {
+    ...state,
+    [requestName]: {
+      loading: requestState == 'REQUEST',
+      success: requestState == 'SUCCESS',
+      error: err,
+    },
+  };
+};
 
 export default statusReducer;

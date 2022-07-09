@@ -1,19 +1,19 @@
-import { useState } from 'react';
+import {useState} from 'react';
 import './styles/App.css';
 import AuthDispatchers from './state/auth/dispatchers';
-import { useDispatch } from 'react-redux';
-import { useTokens } from "./state/selectors/authSelectors";
-import { useAuthStatus } from "./state/selectors/statusSelectors";
+import {useDispatch} from 'react-redux';
+import {useTokens} from './state/selectors/authSelectors';
+import {useAuthStatus} from './state/selectors/statusSelectors';
 
 function App() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [load, setLoad] = useState(false);
-  const { access_token, refresh_token } = useTokens();
+  const {access_token, refresh_token} = useTokens();
   const loading = useAuthStatus();
   const dispatch = useDispatch();
 
-  if (loading) setTimeout(() => setLoad(true), 250)
+  if (loading) setTimeout(() => setLoad(true), 250);
   else if (load && !loading) setLoad(false);
 
   return (
