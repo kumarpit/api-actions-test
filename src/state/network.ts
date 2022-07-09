@@ -13,38 +13,38 @@ type Request = {
 };
 
 const Network = {
-  configure: (config: AxiosRequestHeaders): void => {
-    const oldConfig = axios.defaults.headers.common;
+	configure: (config: AxiosRequestHeaders): void => {
+		const oldConfig = axios.defaults.headers.common;
 
-    axios.defaults.headers.common = {
-      ...oldConfig,
-      ...config,
-    };
-  },
+		axios.defaults.headers.common = {
+			...oldConfig,
+			...config,
+		};
+	},
 
-  post: async ({
-    path,
-    body,
-  }: Request): Promise<AxiosResponse> => {
-    const result = await axios.post(
-        constructPath(path),
-        body,
-    );
+	post: async ({
+		path,
+		body,
+	}: Request): Promise<AxiosResponse> => {
+		const result = await axios.post(
+			constructPath(path),
+			body,
+		);
 
-    return {
-      ...result,
-    };
-  },
+		return {
+			...result,
+		};
+	},
 
-  get: async ({
-    path,
-  }: Request): Promise<AxiosResponse> => {
-    const result = await axios.get(constructPath(path));
+	get: async ({
+		path,
+	}: Request): Promise<AxiosResponse> => {
+		const result = await axios.get(constructPath(path));
 
-    return {
-      ...result,
-    };
-  },
+		return {
+			...result,
+		};
+	},
 };
 
 

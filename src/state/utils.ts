@@ -6,17 +6,17 @@ import {Action, RSAA, defaultRSAA, RSAAobject} from './types';
  * the appropiate network request
  */
 const request = (rsaa: RSAAobject): Action => {
-  return {
-    type: '[api request]',
-    [RSAA]: {
-      ...defaultRSAA,
-      ...rsaa,
-    },
-  };
+	return {
+		type: '[api request]',
+		[RSAA]: {
+			...defaultRSAA,
+			...rsaa,
+		},
+	};
 };
 
 export const createAction = (type: string, payload: object) => {
-  return {type: type, payload: payload};
+	return {type: type, payload: payload};
 };
 
 export default request;

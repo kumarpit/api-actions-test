@@ -11,25 +11,25 @@ export type StatusStore = {
 const initialState: StatusStore = {};
 
 const statusReducer = (
-    state: StatusStore = initialState,
-    {type, payload}: Action,
+	state: StatusStore = initialState,
+	{type, payload}: Action,
 ): StatusStore => {
-  const matches = /(.*)_(REQUEST|SUCCESS|FAILURE)/.exec(type);
-  if (!matches) return state;
+	const matches = /(.*)_(REQUEST|SUCCESS|FAILURE)/.exec(type);
+	if (!matches) return state;
 
-  const [, requestName, requestState] = matches;
+	const [, requestName, requestState] = matches;
 
-  let err = '';
-  if (requestState == 'FAILURE') err = payload.message;
+	let err = '';
+	if (requestState == 'FAILURE') err = payload.message;
 
-  return {
-    ...state,
-    [requestName]: {
-      loading: requestState == 'REQUEST',
-      success: requestState == 'SUCCESS',
-      error: err,
-    },
-  };
+	return {
+		...state,
+		[requestName]: {
+			loading: requestState == 'REQUEST',
+			success: requestState == 'SUCCESS',
+			error: err,
+		},
+	};
 };
 
 export default statusReducer;

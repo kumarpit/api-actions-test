@@ -18,11 +18,11 @@ export type RSAAobject = {
 }
 
 export const defaultRSAA: RSAAobject = {
-  endpoint: '/',
-  method: HTTPMethod.GET,
-  nextAction: '',
-  onSuccess: null,
-  refresh: false,
+	endpoint: '/',
+	method: HTTPMethod.GET,
+	nextAction: '',
+	onSuccess: null,
+	refresh: false,
 };
 
 export type CBFunction = Nullable<(res: any, dispatch: any) => void>;
