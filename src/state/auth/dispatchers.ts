@@ -10,7 +10,7 @@ const signup = (dispatch: any, username: string, password: string) => {
   };
   dispatch(request({
     method: HTTPMethod.POST,
-    endpoint: 'signup',
+    endpoint: 'user',
     nextAction: AuthActions.SIGNUP,
     body: body,
   }));
@@ -27,8 +27,9 @@ const login = (dispatch: any, username: string, password: string) => {
     nextAction: AuthActions.LOGIN,
     body: body,
     onSuccess: (res, dispatch) => {
+      console.log('LOOK' + res.data.access_token);
       Network.configure({
-        authorization: `BEARER ${res.data.access_token}`,
+        Authorization: `BEARER ${res.data.access_token}`,
       });
     },
   }));
@@ -41,7 +42,7 @@ const logout = (dispatch: any) => {
     nextAction: AuthActions.LOGOUT,
     refresh: true,
     onSuccess: (res, dispatch) => {
-      Network.configure({authorization: ''});
+      Network.configure({Authorization: ''});
     },
   }));
 };
@@ -53,7 +54,7 @@ const token = (dispatch: any) => {
     refresh: true,
     nextAction: AuthActions.TOKEN,
     onSuccess: (res, dispatch) => {
-      Network.configure({authorization: `BEARER ${res.data.new_access_token}`});
+      Network.configure({Authorization: `BEARER ${res.data.new_access_token}`});
     },
   }));
 };

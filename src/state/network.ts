@@ -13,7 +13,7 @@ type Request = {
 };
 
 const Network = {
-  configure: (config: AxiosRequestHeaders): void => {
+   configure: (config: AxiosRequestHeaders): void => {
     const oldConfig = axios.defaults.headers.common;
 
     axios.defaults.headers.common = {

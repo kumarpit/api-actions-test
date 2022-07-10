@@ -22,6 +22,8 @@ const statusReducer = (
   let err = '';
   if (requestState == 'FAILURE') err = payload.message;
 
+  console.log({ type, payload });
+
   return {
     ...state,
     [requestName]: {

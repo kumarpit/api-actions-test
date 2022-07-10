@@ -12,6 +12,8 @@ const authReducer = (
     state: AuthStore = initialState,
     {type, payload}: Action,
 ): AuthStore => {
+  console.log(state);
+
   switch (type) {
     case AuthActions.LOGIN:
       return {
