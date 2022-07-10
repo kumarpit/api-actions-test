@@ -2,18 +2,23 @@ import request from '../utils';
 import Network from '../network';
 import * as AuthActions from './actions';
 import {HTTPMethod} from '../types';
+import { createAction } from 'reax';
+
 
 const signup = (dispatch: any, username: string, password: string) => {
 	const body = {
 		username: username,
 		password: password,
 	};
-	dispatch(request({
-		method: HTTPMethod.POST,
-		endpoint: 'signup',
-		nextAction: AuthActions.SIGNUP,
+  	const obj = createAction({
+		method: 'post',
+		path: 'http://localhost:3000/user',
 		body: body,
-	}));
+		types: [''],
+		onSuccess: () => console.log('success'),
+		onFail: () => console.log('oh no')
+	})
+	dispatch(obj);
 };
 
 const login = (dispatch: any, username: string, password: string) => {

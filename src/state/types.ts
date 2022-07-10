@@ -1,6 +1,6 @@
 type Nullable<T> = T | null;
 
-export const RSAA = '@@restful-middleware/RSAA';
+export const RSAA = '@@reax/RSAA';
 
 export enum HTTPMethod {
     POST = 'POST',

@@ -1,7 +1,9 @@
-import axios, {AxiosRequestHeaders, AxiosResponse} from 'axios';
+import ax, {AxiosRequestHeaders, AxiosResponse} from 'axios';
 
-axios.defaults.timeout = 1000;
-axios.defaults.headers.post['Content-Type'] = 'application/json';
+const axios = ax.create({
+  timeout: 1000,
+  headers: {'Content-Type': 'application/json'}
+})
 
 const url = 'http://127.0.0.1:3000';
 const constructPath = (path: string): string => `${url}/${path}`;
@@ -49,3 +51,4 @@ const Network = {
 
 
 export default Network;
+export { axios }
